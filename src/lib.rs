@@ -10,11 +10,15 @@ pub trait ArrayMap<X, Y, T> {
 }
 
 macro_rules! map_inner {
-    {$f:ident, $s:ident, []; $n:expr, $($ns:expr),*,} => { map_inner!($f, $s, [$f(&$s[$n])]; $($ns),*,) };
+    {$f:ident, $s:ident, []; $n:expr, $($ns:expr),*,} => {
+        map_inner!($f, $s, [$f(&$s[$n])]; $($ns),*,)
+    };
     {$f:ident, $s:ident, [$($t:tt)*]; $n:expr, $($ns:expr),*,} => {
         map_inner!($f, $s, [$f(&$s[$n]), $($t)*]; $($ns),*,)
     };
-    {$f:ident, $s:ident, [$($t:tt)*]; $n:expr, } => { map_inner!($f, $s, [$f(&$s[$n]), $($t)*]) };
+    {$f:ident, $s:ident, [$($t:tt)*]; $n:expr, } => {
+        map_inner!($f, $s, [$f(&$s[$n]), $($t)*])
+    };
     {$f:ident, $s:ident, $t:expr} => { $t };
 }
 
@@ -41,7 +45,7 @@ map_impl!{32, 31, 30, 29, 28, 27, 26, 25, 24, 23, 22, 21, 20, 19, 18, 17, 16,
 #[cfg(test)]
 mod tests {
     use ArrayMap;
-    
+
     #[test]
     fn empty_array() {
         let x : [u8; 0] = [];

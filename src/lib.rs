@@ -10,24 +10,23 @@ pub trait ArrayMap<X, Y, T> {
 }
 
 macro_rules! map_inner {
-    {$f:ident, $s:ident, []; $n:expr, $($ns:expr),*,} => {
+    {$f:ident, $s:expr, []; $n:expr, $($ns:expr),*,} => {
         map_inner!($f, $s, [$f(&$s[$n])]; $($ns),*,)
     };
-    {$f:ident, $s:ident, [$($t:tt)*]; $n:expr, $($ns:expr),*,} => {
+    {$f:ident, $s:expr, [$($t:tt)*]; $n:expr, $($ns:expr),*,} => {
         map_inner!($f, $s, [$f(&$s[$n]), $($t)*]; $($ns),*,)
     };
-    {$f:ident, $s:ident, [$($t:tt)*]; $n:expr, } => {
+    {$f:ident, $s:expr, [$($t:tt)*]; $n:expr, } => {
         map_inner!($f, $s, [$f(&$s[$n]), $($t)*])
     };
-    {$f:ident, $s:ident, $t:expr} => { $t };
+    {$f:ident, $s:expr, $t:expr} => { $t };
 }
 
 macro_rules! map_impl {
     {$n:expr, $($ns:expr),*} => {
         impl<U, V> ArrayMap<U, V, [V; $n]> for [U; $n] {
             fn map<F: Fn(&U) -> V>(&self, f: F) -> [V; $n] {
-                let s = self;
-                map_inner!(f, s, []; $($ns),*,)
+                map_inner!(f, self, []; $($ns),*,)
             }
         }
         map_impl!{$($ns),*}

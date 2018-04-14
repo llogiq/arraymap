@@ -1,6 +1,6 @@
 [package]
 name = "arraymap"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Andre Bogus <bogusandre@gmail.com>"]
 description = "Adds a trait to map functions over arrays"
 license = "MIT"

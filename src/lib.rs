@@ -2,6 +2,8 @@
 ///
 /// Examples:
 /// ```
+/// use arraymap::ArrayMap;
+///
 /// let x = [1, 2, 3];
 /// assert_eq!([2, 3, 4], x.map(|v| v + 1));
 /// ```

@@ -1,3 +1,5 @@
+#![no_std]
+
 /// map a function over an array
 ///
 /// Examples:
